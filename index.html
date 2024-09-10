@@ -26,6 +26,7 @@
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
         <script src="js/L.Control.Layers.Tree.min.js"></script>
+        <script src="js/multi-style-layer.js"></script>
         <script src="js/leaflet.rotatedMarker.js"></script>
         <script src="js/leaflet.pattern.js"></script>
         <script src="js/leaflet-hash.js"></script>
@@ -35,8 +36,15 @@
         <script src="js/labels.js"></script>
         <script src="data/Partida_1.js"></script>
         <script src="data/Meta_2.js"></script>
-        <script src="data/PercursoMM_3.js"></script>
-        <script src="data/10K_4.js"></script>
+        <script src="data/Palco_3.js"></script>
+        <script src="data/Tendas_4.js"></script>
+        <script src="data/PostoSocorro_5.js"></script>
+        <script src="data/AbastecimentoMM_6.js"></script>
+        <script src="data/Abastecimento10K_7.js"></script>
+        <script src="data/AbastecimentoCaminhada_8.js"></script>
+        <script src="data/PercursoMeiaMaratona_9.js"></script>
+        <script src="data/Percurso10K_10.js"></script>
+        <script src="data/PercursoCaminhada_11.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -258,7 +266,403 @@
         });
         bounds_group.addLayer(layer_Meta_2);
         map.addLayer(layer_Meta_2);
-        function pop_PercursoMM_3(feature, layer) {
+        function pop_Palco_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (var i in e.target._eventParents) {
+                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                            e.target._eventParents[i].resetStyle(e.target);
+                        }
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Tipo'] !== null ? autolinker.link(feature.properties['Tipo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_Palco_3_0() {
+            return {
+                pane: 'pane_Palco_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(150,150,150,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Palco_3');
+        map.getPane('pane_Palco_3').style.zIndex = 403;
+        map.getPane('pane_Palco_3').style['mix-blend-mode'] = 'normal';
+        var layer_Palco_3 = new L.geoJson(json_Palco_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Palco_3',
+            layerName: 'layer_Palco_3',
+            pane: 'pane_Palco_3',
+            onEachFeature: pop_Palco_3,
+            style: style_Palco_3_0,
+        });
+        bounds_group.addLayer(layer_Palco_3);
+        map.addLayer(layer_Palco_3);
+        function pop_Tendas_4(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (var i in e.target._eventParents) {
+                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                            e.target._eventParents[i].resetStyle(e.target);
+                        }
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Tipo'] !== null ? autolinker.link(feature.properties['Tipo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_Tendas_4_0() {
+            return {
+                pane: 'pane_Tendas_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,1.0)',
+                interactive: false,
+            }
+        }
+        function style_Tendas_4_1() {
+            return {
+                pane: 'pane_Tendas_4',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_Tendas_4');
+        map.getPane('pane_Tendas_4').style.zIndex = 404;
+        map.getPane('pane_Tendas_4').style['mix-blend-mode'] = 'normal';
+        var layer_Tendas_4 = new L.geoJson.multiStyle(json_Tendas_4, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_Tendas_4',
+            layerName: 'layer_Tendas_4',
+            pane: 'pane_Tendas_4',
+            onEachFeature: pop_Tendas_4,
+            styles: [style_Tendas_4_0,style_Tendas_4_1,]
+        });
+        bounds_group.addLayer(layer_Tendas_4);
+        map.addLayer(layer_Tendas_4);
+        function pop_PostoSocorro_5(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (var i in e.target._eventParents) {
+                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                            e.target._eventParents[i].resetStyle(e.target);
+                        }
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Tipo'] !== null ? autolinker.link(feature.properties['Tipo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_PostoSocorro_5_0() {
+            return {
+                pane: 'pane_PostoSocorro_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,1.0)',
+                interactive: true,
+            }
+        }
+        function style_PostoSocorro_5_1() {
+            return {
+                pane: 'pane_PostoSocorro_5',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_PostoSocorro_5');
+        map.getPane('pane_PostoSocorro_5').style.zIndex = 405;
+        map.getPane('pane_PostoSocorro_5').style['mix-blend-mode'] = 'normal';
+        var layer_PostoSocorro_5 = new L.geoJson.multiStyle(json_PostoSocorro_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_PostoSocorro_5',
+            layerName: 'layer_PostoSocorro_5',
+            pane: 'pane_PostoSocorro_5',
+            onEachFeature: pop_PostoSocorro_5,
+            styles: [style_PostoSocorro_5_0,style_PostoSocorro_5_1,]
+        });
+        bounds_group.addLayer(layer_PostoSocorro_5);
+        map.addLayer(layer_PostoSocorro_5);
+        function pop_AbastecimentoMM_6(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (var i in e.target._eventParents) {
+                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                            e.target._eventParents[i].resetStyle(e.target);
+                        }
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tipo</th>\
+                        <td>' + (feature.properties['Tipo'] !== null ? autolinker.link(feature.properties['Tipo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_AbastecimentoMM_6_0() {
+            return {
+                pane: 'pane_AbastecimentoMM_6',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/AbastecimentoMM_6.svg',
+            iconSize: [33.44, 33.44]
+        }),
+                interactive: true,
+            }
+        }
+        map.createPane('pane_AbastecimentoMM_6');
+        map.getPane('pane_AbastecimentoMM_6').style.zIndex = 406;
+        map.getPane('pane_AbastecimentoMM_6').style['mix-blend-mode'] = 'normal';
+        var layer_AbastecimentoMM_6 = new L.geoJson(json_AbastecimentoMM_6, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_AbastecimentoMM_6',
+            layerName: 'layer_AbastecimentoMM_6',
+            pane: 'pane_AbastecimentoMM_6',
+            onEachFeature: pop_AbastecimentoMM_6,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_AbastecimentoMM_6_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_AbastecimentoMM_6);
+        map.addLayer(layer_AbastecimentoMM_6);
+        function pop_Abastecimento10K_7(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (var i in e.target._eventParents) {
+                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                            e.target._eventParents[i].resetStyle(e.target);
+                        }
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tipo</th>\
+                        <td>' + (feature.properties['Tipo'] !== null ? autolinker.link(feature.properties['Tipo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_Abastecimento10K_7_0() {
+            return {
+                pane: 'pane_Abastecimento10K_7',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/Abastecimento10K_7.svg',
+            iconSize: [33.44, 33.44]
+        }),
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Abastecimento10K_7');
+        map.getPane('pane_Abastecimento10K_7').style.zIndex = 407;
+        map.getPane('pane_Abastecimento10K_7').style['mix-blend-mode'] = 'normal';
+        var layer_Abastecimento10K_7 = new L.geoJson(json_Abastecimento10K_7, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Abastecimento10K_7',
+            layerName: 'layer_Abastecimento10K_7',
+            pane: 'pane_Abastecimento10K_7',
+            onEachFeature: pop_Abastecimento10K_7,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_Abastecimento10K_7_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Abastecimento10K_7);
+        map.addLayer(layer_Abastecimento10K_7);
+        function pop_AbastecimentoCaminhada_8(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (var i in e.target._eventParents) {
+                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                            e.target._eventParents[i].resetStyle(e.target);
+                        }
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tipo</th>\
+                        <td>' + (feature.properties['Tipo'] !== null ? autolinker.link(feature.properties['Tipo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_AbastecimentoCaminhada_8_0() {
+            return {
+                pane: 'pane_AbastecimentoCaminhada_8',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/AbastecimentoCaminhada_8.svg',
+            iconSize: [33.44, 33.44]
+        }),
+                interactive: true,
+            }
+        }
+        map.createPane('pane_AbastecimentoCaminhada_8');
+        map.getPane('pane_AbastecimentoCaminhada_8').style.zIndex = 408;
+        map.getPane('pane_AbastecimentoCaminhada_8').style['mix-blend-mode'] = 'normal';
+        var layer_AbastecimentoCaminhada_8 = new L.geoJson(json_AbastecimentoCaminhada_8, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_AbastecimentoCaminhada_8',
+            layerName: 'layer_AbastecimentoCaminhada_8',
+            pane: 'pane_AbastecimentoCaminhada_8',
+            onEachFeature: pop_AbastecimentoCaminhada_8,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_AbastecimentoCaminhada_8_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_AbastecimentoCaminhada_8);
+        map.addLayer(layer_AbastecimentoCaminhada_8);
+        function pop_PercursoMeiaMaratona_9(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (var i in e.target._eventParents) {
@@ -321,9 +725,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_PercursoMM_3_0() {
+        function style_PercursoMeiaMaratona_9_0() {
             return {
-                pane: 'pane_PercursoMM_3',
+                pane: 'pane_PercursoMeiaMaratona_9',
                 opacity: 1,
                 color: 'rgba(33,176,238,1.0)',
                 dashArray: '',
@@ -334,21 +738,21 @@
                 interactive: false,
             }
         }
-        map.createPane('pane_PercursoMM_3');
-        map.getPane('pane_PercursoMM_3').style.zIndex = 403;
-        map.getPane('pane_PercursoMM_3').style['mix-blend-mode'] = 'normal';
-        var layer_PercursoMM_3 = new L.geoJson(json_PercursoMM_3, {
+        map.createPane('pane_PercursoMeiaMaratona_9');
+        map.getPane('pane_PercursoMeiaMaratona_9').style.zIndex = 409;
+        map.getPane('pane_PercursoMeiaMaratona_9').style['mix-blend-mode'] = 'normal';
+        var layer_PercursoMeiaMaratona_9 = new L.geoJson(json_PercursoMeiaMaratona_9, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_PercursoMM_3',
-            layerName: 'layer_PercursoMM_3',
-            pane: 'pane_PercursoMM_3',
-            onEachFeature: pop_PercursoMM_3,
-            style: style_PercursoMM_3_0,
+            dataVar: 'json_PercursoMeiaMaratona_9',
+            layerName: 'layer_PercursoMeiaMaratona_9',
+            pane: 'pane_PercursoMeiaMaratona_9',
+            onEachFeature: pop_PercursoMeiaMaratona_9,
+            style: style_PercursoMeiaMaratona_9_0,
         });
-        bounds_group.addLayer(layer_PercursoMM_3);
-        map.addLayer(layer_PercursoMM_3);
-        function pop_10K_4(feature, layer) {
+        bounds_group.addLayer(layer_PercursoMeiaMaratona_9);
+        map.addLayer(layer_PercursoMeiaMaratona_9);
+        function pop_Percurso10K_10(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (var i in e.target._eventParents) {
@@ -384,9 +788,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_10K_4_0() {
+        function style_Percurso10K_10_0() {
             return {
-                pane: 'pane_10K_4',
+                pane: 'pane_Percurso10K_10',
                 opacity: 1,
                 color: 'rgba(79,255,63,1.0)',
                 dashArray: '',
@@ -397,24 +801,120 @@
                 interactive: false,
             }
         }
-        map.createPane('pane_10K_4');
-        map.getPane('pane_10K_4').style.zIndex = 404;
-        map.getPane('pane_10K_4').style['mix-blend-mode'] = 'normal';
-        var layer_10K_4 = new L.geoJson(json_10K_4, {
+        map.createPane('pane_Percurso10K_10');
+        map.getPane('pane_Percurso10K_10').style.zIndex = 410;
+        map.getPane('pane_Percurso10K_10').style['mix-blend-mode'] = 'normal';
+        var layer_Percurso10K_10 = new L.geoJson(json_Percurso10K_10, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_10K_4',
-            layerName: 'layer_10K_4',
-            pane: 'pane_10K_4',
-            onEachFeature: pop_10K_4,
-            style: style_10K_4_0,
+            dataVar: 'json_Percurso10K_10',
+            layerName: 'layer_Percurso10K_10',
+            pane: 'pane_Percurso10K_10',
+            onEachFeature: pop_Percurso10K_10,
+            style: style_Percurso10K_10_0,
         });
-        bounds_group.addLayer(layer_10K_4);
-        map.addLayer(layer_10K_4);
+        bounds_group.addLayer(layer_Percurso10K_10);
+        map.addLayer(layer_Percurso10K_10);
+        function pop_PercursoCaminhada_11(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (var i in e.target._eventParents) {
+                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                            e.target._eventParents[i].resetStyle(e.target);
+                        }
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['description'] !== null ? autolinker.link(feature.properties['description'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['timestamp'] !== null ? autolinker.link(feature.properties['timestamp'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['begin'] !== null ? autolinker.link(feature.properties['begin'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['end'] !== null ? autolinker.link(feature.properties['end'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['altitudeMode'] !== null ? autolinker.link(feature.properties['altitudeMode'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tessellate'] !== null ? autolinker.link(feature.properties['tessellate'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['extrude'] !== null ? autolinker.link(feature.properties['extrude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['visibility'] !== null ? autolinker.link(feature.properties['visibility'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['drawOrder'] !== null ? autolinker.link(feature.properties['drawOrder'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['icon'] !== null ? autolinker.link(feature.properties['icon'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_PercursoCaminhada_11_0() {
+            return {
+                pane: 'pane_PercursoCaminhada_11',
+                opacity: 1,
+                color: 'rgba(248,223,36,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_PercursoCaminhada_11');
+        map.getPane('pane_PercursoCaminhada_11').style.zIndex = 411;
+        map.getPane('pane_PercursoCaminhada_11').style['mix-blend-mode'] = 'normal';
+        var layer_PercursoCaminhada_11 = new L.geoJson(json_PercursoCaminhada_11, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_PercursoCaminhada_11',
+            layerName: 'layer_PercursoCaminhada_11',
+            pane: 'pane_PercursoCaminhada_11',
+            onEachFeature: pop_PercursoCaminhada_11,
+            style: style_PercursoCaminhada_11_0,
+        });
+        bounds_group.addLayer(layer_PercursoCaminhada_11);
+        map.addLayer(layer_PercursoCaminhada_11);
         var baseMaps = {};
         var overlaysTree = [
-            {label: '<img src="legend/10K_4.png" /> 10K', layer: layer_10K_4},
-            {label: '<img src="legend/PercursoMM_3.png" /> Percurso MM', layer: layer_PercursoMM_3},
+        {label: '<b>Percursos</b>', selectAllCheckbox: true, children: [
+            {label: '<img src="legend/PercursoCaminhada_11.png" /> Percurso Caminhada', layer: layer_PercursoCaminhada_11},
+            {label: '<img src="legend/Percurso10K_10.png" /> Percurso 10K', layer: layer_Percurso10K_10},
+            {label: '<img src="legend/PercursoMeiaMaratona_9.png" /> Percurso Meia-Maratona', layer: layer_PercursoMeiaMaratona_9},]},
+        {label: '<b>Abastecimentos</b>', selectAllCheckbox: true, children: [
+            {label: '<img src="legend/AbastecimentoCaminhada_8.png" /> Abastecimento Caminhada', layer: layer_AbastecimentoCaminhada_8},
+            {label: '<img src="legend/Abastecimento10K_7.png" /> Abastecimento 10K', layer: layer_Abastecimento10K_7},
+            {label: '<img src="legend/AbastecimentoMM_6.png" /> Abastecimento MM', layer: layer_AbastecimentoMM_6},]},
+            {label: '<img src="legend/PostoSocorro_5.png" /> Posto Socorro', layer: layer_PostoSocorro_5},
+            {label: '<img src="legend/Tendas_4.png" /> Tendas', layer: layer_Tendas_4},
+            {label: '<img src="legend/Palco_3.png" /> Palco', layer: layer_Palco_3},
             {label: '<img src="legend/Meta_2.png" /> Meta', layer: layer_Meta_2},
             {label: '<img src="legend/Partida_1.png" /> Partida', layer: layer_Partida_1},
             {label: "Google Satellite", layer: layer_GoogleSatellite_0},]
@@ -428,7 +928,179 @@
             collapsed: false, 
         });
         lay.addTo(map);
+		document.addEventListener("DOMContentLoaded", function() {
+            // set new Layers List height which considers toggle icon
+            function newLayersListHeight() {
+                var layerScrollbarElement = document.querySelector('.leaflet-control-layers-scrollbar');
+                if (layerScrollbarElement) {
+                    var layersListElement = document.querySelector('.leaflet-control-layers-list');
+                    var originalHeight = layersListElement.style.height 
+                        || window.getComputedStyle(layersListElement).height;
+                    var newHeight = parseFloat(originalHeight) - 50;
+                    layersListElement.style.height = newHeight + 'px';
+                }
+            }
+            var isLayersListExpanded = true;
+            var controlLayersElement = document.querySelector('.leaflet-control-layers');
+            var toggleLayerControl = document.querySelector('.leaflet-control-layers-toggle');
+            // toggle Collapsed/Expanded and apply new Layers List height
+            toggleLayerControl.addEventListener('click', function() {
+                if (isLayersListExpanded) {
+                    controlLayersElement.classList.remove('leaflet-control-layers-expanded');
+                } else {
+                    controlLayersElement.classList.add('leaflet-control-layers-expanded');
+                }
+                isLayersListExpanded = !isLayersListExpanded;
+                newLayersListHeight()
+            });	
+			// apply new Layers List height if toggle layerstree
+			if (controlLayersElement) {
+				controlLayersElement.addEventListener('click', function(event) {
+					var toggleLayerHeaderPointer = event.target.closest('.leaflet-layerstree-header-pointer span');
+					if (toggleLayerHeaderPointer) {
+						newLayersListHeight();
+					}
+				});
+			}
+            // Collapsed/Expanded at Start to apply new height
+            setTimeout(function() {
+                toggleLayerControl.click();
+            }, 10);
+            setTimeout(function() {
+                toggleLayerControl.click();
+            }, 10);
+            // Collapsed touch/small screen
+            var isSmallScreen = window.innerWidth < 650;
+            if (isSmallScreen) {
+                setTimeout(function() {
+                    controlLayersElement.classList.remove('leaflet-control-layers-expanded');
+                    isLayersListExpanded = !isLayersListExpanded;
+                }, 500);
+            }  
+        });       
+        map.on("zoomend", function(){
+
+                if (map.hasLayer(layer_Tendas_4)) {
+                    if (map.getZoom() <= 17 && map.getZoom() >= 19) {
+                        layer_Tendas_4.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_Tendas_4.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_PostoSocorro_5)) {
+                    if (map.getZoom() <= 17 && map.getZoom() >= 19) {
+                        layer_PostoSocorro_5.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_PostoSocorro_5.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+        });
         setBounds();
+        var i = 0;
+        layer_Tendas_4.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Tipo'] !== null?String('<div style="color: #323232; font-size: 10pt; font-family: \'Open Sans\', sans-serif;">' + layer.feature.properties['Tipo']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Tendas_4'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_PostoSocorro_5.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Tipo'] !== null?String('<div style="color: #323232; font-size: 12pt; font-family: \'Open Sans\', sans-serif;">' + layer.feature.properties['Tipo']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_PostoSocorro_5'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_AbastecimentoMM_6.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Tipo'] !== null?String('<div style="color: #323232; font-size: 10pt; font-family: \'Open Sans\', sans-serif;">' + layer.feature.properties['Tipo']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_AbastecimentoMM_6'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_Abastecimento10K_7.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Tipo'] !== null?String('<div style="color: #323232; font-size: 10pt; font-family: \'Open Sans\', sans-serif;">' + layer.feature.properties['Tipo']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Abastecimento10K_7'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_AbastecimentoCaminhada_8.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Tipo'] !== null?String('<div style="color: #323232; font-size: 10pt; font-family: \'Open Sans\', sans-serif;">' + layer.feature.properties['Tipo']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_AbastecimentoCaminhada_8'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+                if (map.hasLayer(layer_Tendas_4)) {
+                    if (map.getZoom() <= 17 && map.getZoom() >= 19) {
+                        layer_Tendas_4.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_Tendas_4.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_PostoSocorro_5)) {
+                    if (map.getZoom() <= 17 && map.getZoom() >= 19) {
+                        layer_PostoSocorro_5.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_PostoSocorro_5.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+        resetLabels([layer_Tendas_4,layer_PostoSocorro_5,layer_AbastecimentoMM_6,layer_Abastecimento10K_7,layer_AbastecimentoCaminhada_8]);
+        map.on("zoomend", function(){
+            resetLabels([layer_Tendas_4,layer_PostoSocorro_5,layer_AbastecimentoMM_6,layer_Abastecimento10K_7,layer_AbastecimentoCaminhada_8]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_Tendas_4,layer_PostoSocorro_5,layer_AbastecimentoMM_6,layer_Abastecimento10K_7,layer_AbastecimentoCaminhada_8]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_Tendas_4,layer_PostoSocorro_5,layer_AbastecimentoMM_6,layer_Abastecimento10K_7,layer_AbastecimentoCaminhada_8]);
+        });
         </script>
     </body>
 </html>
